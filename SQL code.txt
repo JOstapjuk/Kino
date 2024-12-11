@@ -1,0 +1,52 @@
+create database KinoOstapjuk
+use KinoOstapjuk
+
+create table saal(
+Id int primary key identity(1,1),
+Nimetus varchar(100),
+Kohad int,
+Kirjeldus text
+);
+
+create table film(
+Id int primary key identity(1,1),
+Nimetus varchar(100),
+Zanr varchar(200),
+Rezisoor varchar(200),
+Pikkus varchar(20),
+Osatäitjad text,
+Poster varchar(255)
+);
+
+create table seans(
+Id int primary key identity(1,1),
+SaalID int,
+FilmID int,
+Paev varchar(40),
+foreign key (SaalID) references Saal(Id),
+foreign key (FilmID) references Film(Id)
+);
+
+create table kasutajad(
+Id int primary key identity(1,1),
+KasutajaNimi varchar(200),
+Parool varchar(max),
+Email varchar(max),
+);
+
+create table piletid(
+Id int primary key identity(1,1),
+KasutajaID int,
+SeansID int,
+Hind float,
+Koht varchar(50),
+foreign key (KasutajaID) references Kasutajad(Id),
+foreign key (SeansID) references Seans(Id),
+);
+
+create table adminTB(
+Id int primary key identity(1,1),
+AdminNimi varchar(200),
+Parool varchar(max),
+Email varchar(max),
+);
