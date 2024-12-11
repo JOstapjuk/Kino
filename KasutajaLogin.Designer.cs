@@ -30,13 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KasutajaLogin));
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.loginBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.paroolBox = new System.Windows.Forms.TextBox();
+            this.loginBtn = new System.Windows.Forms.Button();
+            this.registerBtn = new System.Windows.Forms.Button();
+            this.valjudaBtn = new System.Windows.Forms.Button();
+            this.ilmaLoginBtn = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -53,12 +53,12 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Login";
             // 
-            // textBox1
+            // loginBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(151, 104);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
+            this.loginBox.Location = new System.Drawing.Point(151, 104);
+            this.loginBox.Name = "loginBox";
+            this.loginBox.Size = new System.Drawing.Size(100, 20);
+            this.loginBox.TabIndex = 1;
             // 
             // label2
             // 
@@ -72,62 +72,65 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Parool";
             // 
-            // textBox2
+            // paroolBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(151, 171);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 3;
+            this.paroolBox.Location = new System.Drawing.Point(151, 171);
+            this.paroolBox.Name = "paroolBox";
+            this.paroolBox.Size = new System.Drawing.Size(100, 20);
+            this.paroolBox.TabIndex = 3;
             // 
-            // button1
+            // loginBtn
             // 
-            this.button1.BackColor = System.Drawing.Color.Khaki;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(75, 230);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Login";
-            this.button1.UseVisualStyleBackColor = false;
+            this.loginBtn.BackColor = System.Drawing.Color.Khaki;
+            this.loginBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.loginBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.loginBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.loginBtn.ForeColor = System.Drawing.Color.Black;
+            this.loginBtn.Location = new System.Drawing.Point(75, 230);
+            this.loginBtn.Name = "loginBtn";
+            this.loginBtn.Size = new System.Drawing.Size(75, 23);
+            this.loginBtn.TabIndex = 4;
+            this.loginBtn.Text = "Login";
+            this.loginBtn.UseVisualStyleBackColor = false;
+            this.loginBtn.Click += new System.EventHandler(this.loginBtn_Click);
             // 
-            // button2
+            // registerBtn
             // 
-            this.button2.BackColor = System.Drawing.Color.Khaki;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.button2.Location = new System.Drawing.Point(181, 230);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(110, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Registreerimine";
-            this.button2.UseVisualStyleBackColor = false;
+            this.registerBtn.BackColor = System.Drawing.Color.Khaki;
+            this.registerBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.registerBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.registerBtn.Location = new System.Drawing.Point(181, 230);
+            this.registerBtn.Name = "registerBtn";
+            this.registerBtn.Size = new System.Drawing.Size(110, 23);
+            this.registerBtn.TabIndex = 5;
+            this.registerBtn.Text = "Registreerimine";
+            this.registerBtn.UseVisualStyleBackColor = false;
+            this.registerBtn.Click += new System.EventHandler(this.registerBtn_Click);
             // 
-            // button3
+            // valjudaBtn
             // 
-            this.button3.BackColor = System.Drawing.Color.Khaki;
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.button3.Location = new System.Drawing.Point(308, 230);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Väljuda";
-            this.button3.UseVisualStyleBackColor = false;
+            this.valjudaBtn.BackColor = System.Drawing.Color.Khaki;
+            this.valjudaBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.valjudaBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.valjudaBtn.Location = new System.Drawing.Point(308, 230);
+            this.valjudaBtn.Name = "valjudaBtn";
+            this.valjudaBtn.Size = new System.Drawing.Size(75, 23);
+            this.valjudaBtn.TabIndex = 6;
+            this.valjudaBtn.Text = "Väljuda";
+            this.valjudaBtn.UseVisualStyleBackColor = false;
+            this.valjudaBtn.Click += new System.EventHandler(this.valjudaBtn_Click);
             // 
-            // button4
+            // ilmaLoginBtn
             // 
-            this.button4.BackColor = System.Drawing.Color.Khaki;
-            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.button4.Location = new System.Drawing.Point(75, 333);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "Ilma login";
-            this.button4.UseVisualStyleBackColor = false;
+            this.ilmaLoginBtn.BackColor = System.Drawing.Color.Khaki;
+            this.ilmaLoginBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ilmaLoginBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.ilmaLoginBtn.Location = new System.Drawing.Point(75, 333);
+            this.ilmaLoginBtn.Name = "ilmaLoginBtn";
+            this.ilmaLoginBtn.Size = new System.Drawing.Size(75, 23);
+            this.ilmaLoginBtn.TabIndex = 7;
+            this.ilmaLoginBtn.Text = "Ilma login";
+            this.ilmaLoginBtn.UseVisualStyleBackColor = false;
             // 
             // label3
             // 
@@ -163,13 +166,13 @@
             this.ClientSize = new System.Drawing.Size(699, 450);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.ilmaLoginBtn);
+            this.Controls.Add(this.valjudaBtn);
+            this.Controls.Add(this.registerBtn);
+            this.Controls.Add(this.loginBtn);
+            this.Controls.Add(this.paroolBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.loginBox);
             this.Controls.Add(this.label1);
             this.Name = "KasutajaLogin";
             this.Text = "KasutajaLogin";
@@ -181,13 +184,13 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox loginBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TextBox paroolBox;
+        private System.Windows.Forms.Button loginBtn;
+        private System.Windows.Forms.Button registerBtn;
+        private System.Windows.Forms.Button valjudaBtn;
+        private System.Windows.Forms.Button ilmaLoginBtn;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
     }
