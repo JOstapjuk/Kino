@@ -103,7 +103,7 @@ namespace Kino.AdminActions
                     cmd.ExecuteNonQuery();
                     conn.Close();
 
-                    string fullPath = Path.Combine(Path.GetFullPath(@"..\..\pildid"), posterFileName);
+                    string fullPath = Path.Combine(Path.GetFullPath(@"..\..\PosterImg"), posterFileName);
                     if (File.Exists(fullPath))
                     {
                         if (PosterPictureBox.Image != null)
