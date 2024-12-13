@@ -61,29 +61,65 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminLogin.cs">
+    <Compile Include="AdminActions\FilmHaldus.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AdminLogin.Designer.cs">
+    <Compile Include="AdminActions\FilmHaldus.Designer.cs">
+      <DependentUpon>FilmHaldus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdminActions\PiletHaldus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminActions\PiletHaldus.Designer.cs">
+      <DependentUpon>PiletHaldus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdminActions\SaalHaldus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminActions\SaalHaldus.Designer.cs">
+      <DependentUpon>SaalHaldus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminHaldus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminHaldus.Designer.cs">
+      <DependentUpon>AdminHaldus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminLogin.Designer.cs">
       <DependentUpon>AdminLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="KasutajaKino.cs">
+    <Compile Include="Kasutaja\KasutajaKino.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KasutajaKino.Designer.cs">
+    <Compile Include="Kasutaja\KasutajaKino.Designer.cs">
       <DependentUpon>KasutajaKino.cs</DependentUpon>
     </Compile>
-    <Compile Include="KasutajaLogin.cs">
+    <Compile Include="Kasutaja\KasutajaLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KasutajaLogin.Designer.cs">
+    <Compile Include="Kasutaja\KasutajaLogin.Designer.cs">
       <DependentUpon>KasutajaLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="KasutajaReg.cs">
+    <Compile Include="Kasutaja\KasutajaReg.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KasutajaReg.Designer.cs">
+    <Compile Include="Kasutaja\KasutajaReg.Designer.cs">
       <DependentUpon>KasutajaReg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KasutajaActions\Kava.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KasutajaActions\Kava.Designer.cs">
+      <DependentUpon>Kava.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KasutajaActions\OstaPilet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KasutajaActions\OstaPilet.Designer.cs">
+      <DependentUpon>OstaPilet.cs</DependentUpon>
     </Compile>
     <Compile Include="RollValik.cs">
       <SubType>Form</SubType>
@@ -93,13 +129,22 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AdminLogin.resx">
+    <EmbeddedResource Include="AdminActions\FilmHaldus.resx">
+      <DependentUpon>FilmHaldus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\AdminHaldus.resx">
+      <DependentUpon>AdminHaldus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\AdminLogin.resx">
       <DependentUpon>AdminLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KasutajaLogin.resx">
+    <EmbeddedResource Include="Kasutaja\KasutajaKino.resx">
+      <DependentUpon>KasutajaKino.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Kasutaja\KasutajaLogin.resx">
       <DependentUpon>KasutajaLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KasutajaReg.resx">
+    <EmbeddedResource Include="Kasutaja\KasutajaReg.resx">
       <DependentUpon>KasutajaReg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -151,6 +196,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PosterImg\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
