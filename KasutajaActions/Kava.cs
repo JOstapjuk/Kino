@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Reflection.Emit;
 using System.Windows.Forms;
 
@@ -52,15 +53,11 @@ namespace Kino
             {
                 DataRow row = filmTable.Rows[index];
 
-                // Assuming you have text boxes or labels for each field
-                IdLabel.Text = $"ID: {row["Id"]}";
                 NimetusLabel.Text = $"Nimetus: {row["Nimetus"]}";
                 ZanrLabel.Text = $"Zanr: {row["Zanr"]}";
                 RezisoorLabel.Text = $"Režissöör: {row["Rezisoor"]}";
-                PikkusLabel.Text = $"Pikkus: {row["Pikkus"]} min";
-                OsataitjadLabel.Text = $"Osatäitjad: {row["Osataitjad"]}";
+                PikkusLabel.Text = $"Pikkus: {row["Pikkus"]}";
 
-                // Load the poster image
                 string posterPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PosterImg", row["Poster"].ToString());
                 if (System.IO.File.Exists(posterPath))
                 {
