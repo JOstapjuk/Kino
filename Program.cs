@@ -17,7 +17,7 @@ namespace Kino
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FilmHaldus());
+            Application.Run(new RollValik());
         }
     }
 }

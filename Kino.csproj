@@ -138,6 +138,9 @@
     <EmbeddedResource Include="Admin\AdminLogin.resx">
       <DependentUpon>AdminLogin.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="KasutajaActions\Kava.resx">
+      <DependentUpon>Kava.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Kasutaja\KasutajaKino.resx">
       <DependentUpon>KasutajaKino.cs</DependentUpon>
     </EmbeddedResource>

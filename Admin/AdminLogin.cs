@@ -29,7 +29,7 @@ namespace Kino
                 return;
             }
 
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\opilane\\source\\repos\\OstapjukTARpv23\\KinoDB.mdf;Integrated Security=True";
+            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\opilane\\Source\\Repos\\Kino\\KinoDB.mdf;Integrated Security=True";
             string query = "SELECT COUNT(*) FROM AdminDB WHERE AdminNimi = @AdminNimi AND Parool = @Parool";
 
             try

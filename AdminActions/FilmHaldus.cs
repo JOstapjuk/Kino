@@ -9,7 +9,7 @@ namespace Kino.AdminActions
 {
     public partial class FilmHaldus : Form
     {
-        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\opilane\source\repos\OstapjukTARpv23\KinoDB.mdf;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\opilane\Source\Repos\Kino\KinoDB.mdf;Integrated Security=True");
         SqlCommand cmd;
         SqlDataAdapter adapter;
 
@@ -32,27 +32,35 @@ namespace Kino.AdminActions
 
         private void LisaBtn_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(NimetusBox.Text) && !string.IsNullOrWhiteSpace(ZanrBox.Text) &&
-        !string.IsNullOrWhiteSpace(RezisoorBox.Text) && !string.IsNullOrWhiteSpace(PikkusBox.Text) &&
-        !string.IsNullOrWhiteSpace(OsataitjadBox.Text))
+            if (!string.IsNullOrWhiteSpace(NimetusBox.Text) &&
+                !string.IsNullOrWhiteSpace(ZanrBox.Text) &&
+                !string.IsNullOrWhiteSpace(RezisoorBox.Text) &&
+                !string.IsNullOrWhiteSpace(PikkusBox.Text) &&
+                !string.IsNullOrWhiteSpace(OsataitjadBox.Text))
             {
                 try
                 {
-                    OpenFileDialog open = new OpenFileDialog();
-                    open.InitialDirectory = @"C:\Users\opilane\Pictures\";
-                    open.Multiselect = false;
-                    open.Filter = "Image Files(*.jpeg;*.png;*.bmp;*.jpg)|*.jpeg;*.png;*.bmp;*.jpg";
+                    OpenFileDialog open = new OpenFileDialog
+                    {
+                        InitialDirectory = @"C:\Users\opilane\Pictures\",
+                        Multiselect = false,
+                        Filter = "Image Files(*.jpeg;*.png;*.bmp;*.jpg)|*.jpeg;*.png;*.bmp;*.jpg"
+                    };
 
                     if (open.ShowDialog() == DialogResult.OK)
                     {
-                        string saveDirectory = Path.GetFullPath(@"..\..\PosterImg");
+                        string saveDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PosterImg");
+
                         if (!Directory.Exists(saveDirectory))
                         {
                             Directory.CreateDirectory(saveDirectory);
                         }
-                        string extension = Path.GetExtension(open.FileName);
-                        string savePath = Path.Combine(saveDirectory, NimetusBox.Text + extension);
 
+                        string extension = Path.GetExtension(open.FileName);
+                        string fileName = NimetusBox.Text + extension; // Use film name as file name
+                        string savePath = Path.Combine(saveDirectory, fileName);
+
+                        // Save poster image to designated folder
                         File.Copy(open.FileName, savePath, true);
 
                         conn.Open();
@@ -62,14 +70,15 @@ namespace Kino.AdminActions
                         cmd.Parameters.AddWithValue("@rezisoor", RezisoorBox.Text);
                         cmd.Parameters.AddWithValue("@pikkus", PikkusBox.Text);
                         cmd.Parameters.AddWithValue("@osataitjad", OsataitjadBox.Text);
-                        cmd.Parameters.AddWithValue("@poster", savePath);
+                        cmd.Parameters.AddWithValue("@poster", fileName);
 
                         cmd.ExecuteNonQuery();
                         conn.Close();
 
                         PosterPictureBox.Image = Image.FromFile(savePath);
+                        PosterPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
 
-                        MessageBox.Show("Film lisatud!");
+                        MessageBox.Show("Film lisatud ja poster salvestatud!");
                         NaitaAndmed();
                     }
                     else
@@ -88,6 +97,7 @@ namespace Kino.AdminActions
             }
         }
 
+
         private void KustutaBtn_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow != null)
@@ -103,7 +113,7 @@ namespace Kino.AdminActions
                     cmd.ExecuteNonQuery();
                     conn.Close();
 
-                    string fullPath = Path.Combine(Path.GetFullPath(@"..\..\PosterImg"), posterFileName);
+                    string fullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PosterImg", posterFileName);
                     if (File.Exists(fullPath))
                     {
                         if (PosterPictureBox.Image != null)
@@ -125,7 +135,7 @@ namespace Kino.AdminActions
                             File.Delete(fullPath);
                         }
 
-                        MessageBox.Show($"Film ja poster kustutatud!");
+                        MessageBox.Show("Film ja poster kustutatud!");
                     }
                     else
                     {
@@ -145,36 +155,61 @@ namespace Kino.AdminActions
             }
         }
 
-
-
         private void UuendaBtn_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow != null && !string.IsNullOrWhiteSpace(NimetusBox.Text) &&
-                !string.IsNullOrWhiteSpace(ZanrBox.Text) && !string.IsNullOrWhiteSpace(RezisoorBox.Text) &&
-                !string.IsNullOrWhiteSpace(PikkusBox.Text) && !string.IsNullOrWhiteSpace(OsataitjadBox.Text))
+            if (!string.IsNullOrWhiteSpace(NimetusBox.Text) &&
+                !string.IsNullOrWhiteSpace(ZanrBox.Text) &&
+                !string.IsNullOrWhiteSpace(RezisoorBox.Text) &&
+                !string.IsNullOrWhiteSpace(PikkusBox.Text) &&
+                !string.IsNullOrWhiteSpace(OsataitjadBox.Text))
             {
                 try
                 {
-                    conn.Open();
-                    int id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Id"].Value);
+                    string currentFileName = dataGridView1.SelectedRows[0].Cells["Poster"].Value.ToString();
+                    string saveDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PosterImg");
+                    string newFileName = NimetusBox.Text + Path.GetExtension(currentFileName);
 
+                    conn.Open();
                     cmd = new SqlCommand("UPDATE film SET Nimetus = @nimetus, Zanr = @zanr, Rezisoor = @rezisoor, Pikkus = @pikkus, Osataitjad = @osataitjad, Poster = @poster WHERE Id = @id", conn);
-                    cmd.Parameters.AddWithValue("@id", id);
                     cmd.Parameters.AddWithValue("@nimetus", NimetusBox.Text);
+                    cmd.Parameters.AddWithValue("@id", Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value));
                     cmd.Parameters.AddWithValue("@zanr", ZanrBox.Text);
                     cmd.Parameters.AddWithValue("@rezisoor", RezisoorBox.Text);
                     cmd.Parameters.AddWithValue("@pikkus", PikkusBox.Text);
                     cmd.Parameters.AddWithValue("@osataitjad", OsataitjadBox.Text);
-
-                    MemoryStream ms = new MemoryStream();
-                    PosterPictureBox.Image.Save(ms, PosterPictureBox.Image.RawFormat);
-                    byte[] imageBytes = ms.ToArray();
-                    cmd.Parameters.AddWithValue("@poster", imageBytes);
+                    cmd.Parameters.AddWithValue("@poster", newFileName);
 
                     cmd.ExecuteNonQuery();
                     conn.Close();
 
-                    MessageBox.Show("Film uuendatud!");
+                    if (currentFileName != newFileName)
+                    {
+                        string oldPath = Path.Combine(saveDirectory, currentFileName);
+                        string newPath = Path.Combine(saveDirectory, newFileName);
+
+                        if (PosterPictureBox.Image != null)
+                        {
+                            PosterPictureBox.Image.Dispose();
+                            PosterPictureBox.Image = null;
+                        }
+
+                        if (File.Exists(oldPath))
+                        {
+                            GC.Collect();
+                            GC.WaitForPendingFinalizers();
+
+                            try
+                            {
+                                File.Move(oldPath, newPath);
+                            }
+                            catch
+                            {
+                                File.SetAttributes(oldPath, FileAttributes.Normal);
+                                File.Move(oldPath, newPath);
+                            }
+                        }
+                    }
+
                     NaitaAndmed();
                 }
                 catch (Exception ex)
@@ -187,6 +222,7 @@ namespace Kino.AdminActions
                 MessageBox.Show("Palun täida kõik väljad ja vali film, mida uuendada!");
             }
         }
+
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -203,24 +239,34 @@ namespace Kino.AdminActions
                     PikkusBox.Text = dataGridView1.Rows[e.RowIndex].Cells["Pikkus"].Value.ToString();
                     OsataitjadBox.Text = dataGridView1.Rows[e.RowIndex].Cells["Osataitjad"].Value.ToString();
 
-                    string posterPath = dataGridView1.Rows[e.RowIndex].Cells["Poster"].Value.ToString();
+                    string posterFileName = dataGridView1.Rows[e.RowIndex].Cells["Poster"].Value.ToString();
 
-                    try
+                    if (!string.IsNullOrWhiteSpace(posterFileName))
                     {
-                        string fullPosterPath = Path.Combine(Path.GetFullPath(@"..\..\PosterImg"), posterPath);
+                        string fullPosterPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PosterImg", posterFileName);
+
                         if (File.Exists(fullPosterPath))
                         {
+                            // Dispose of the existing image in the PictureBox
+                            if (PosterPictureBox.Image != null)
+                            {
+                                PosterPictureBox.Image.Dispose();
+                                PosterPictureBox.Image = null;
+                            }
+
+                            // Load the new image
                             PosterPictureBox.Image = Image.FromFile(fullPosterPath);
                             PosterPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                         }
                         else
                         {
-                            PosterPictureBox.Image = null;
+                            MessageBox.Show($"Posterit ei leitud: {fullPosterPath}");
+                            PosterPictureBox.Image = null; // Clear the PictureBox
                         }
                     }
-                    catch (Exception)
+                    else
                     {
-                        MessageBox.Show("Viga postri laadimisel!");
+                        PosterPictureBox.Image = null; // Clear the PictureBox if no poster filename
                     }
                 }
                 else
