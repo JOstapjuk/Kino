@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Reflection.Emit;
 using System.Windows.Forms;
 
@@ -26,7 +27,7 @@ namespace Kino
         private void InitializeDatabase()
         {
             // Replace this connection string with your database connection details
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\opilane\\Source\\Repos\\Kino\\KinoDB.mdf;Integrated Security=True";
+            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\jeliz\\Source\\Repos\\Kino\\KinoDB.mdf;Integrated Security=True";
             conn = new SqlConnection(connectionString);
         }
 
@@ -58,13 +59,30 @@ namespace Kino
                 RezisoorLabel.Text = $"Režissöör: {row["Rezisoor"]}";
                 PikkusLabel.Text = $"Pikkus: {row["Pikkus"]}";
 
-                string posterPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PosterImg", row["Poster"].ToString());
-                if (System.IO.File.Exists(posterPath))
+                try
                 {
-                    PosterPictureBox.Image = Image.FromFile(posterPath);
+                    string posterFileName = row["Poster"].ToString().Trim();
+                    string posterPath = Path.Combine(Path.GetFullPath(@"..\..\PosterImg"), posterFileName);
+
+                    Console.WriteLine($"Resolved poster path: {posterPath}"); // Debugging output
+
+                    if (File.Exists(posterPath))
+                    {
+                        using (FileStream fs = new FileStream(posterPath, FileMode.Open, FileAccess.Read))
+                        {
+                            PosterPictureBox.Image = Image.FromStream(fs);
+                            PosterPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("File not found: " + posterPath);
+                        PosterPictureBox.Image = null;
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
+                    Console.WriteLine($"An error occurred while processing the image: {ex.Message}");
                     PosterPictureBox.Image = null;
                 }
             }

@@ -79,6 +79,12 @@
     <Compile Include="AdminActions\SaalHaldus.Designer.cs">
       <DependentUpon>SaalHaldus.cs</DependentUpon>
     </Compile>
+    <Compile Include="AdminActions\SeansHaldus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminActions\SeansHaldus.Designer.cs">
+      <DependentUpon>SeansHaldus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Admin\AdminHaldus.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +97,7 @@
     <Compile Include="Admin\AdminLogin.Designer.cs">
       <DependentUpon>AdminLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Kasutaja\UserDetails.cs" />
     <Compile Include="Kasutaja\KasutajaKino.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +128,11 @@
     <Compile Include="KasutajaActions\OstaPilet.Designer.cs">
       <DependentUpon>OstaPilet.cs</DependentUpon>
     </Compile>
+    <Compile Include="KinoDBDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KinoDBDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="RollValik.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,8 +141,20 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AdminActions\SeatLayoutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminActions\SeatLayoutForm.Designer.cs">
+      <DependentUpon>SeatLayoutForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AdminActions\FilmHaldus.resx">
       <DependentUpon>FilmHaldus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminActions\SaalHaldus.resx">
+      <DependentUpon>SaalHaldus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminActions\SeansHaldus.resx">
+      <DependentUpon>SeansHaldus.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\AdminHaldus.resx">
       <DependentUpon>AdminHaldus.cs</DependentUpon>
@@ -163,6 +187,20 @@
     <EmbeddedResource Include="RollValik.resx">
       <DependentUpon>RollValik.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AdminActions\SeatLayoutForm.resx">
+      <DependentUpon>SeatLayoutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="KinoDBDataSet.xsc">
+      <DependentUpon>KinoDBDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="KinoDBDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>KinoDBDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="KinoDBDataSet.xss">
+      <DependentUpon>KinoDBDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

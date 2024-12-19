@@ -45,7 +45,7 @@ namespace Kino
                 return;
             }
 
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\opilane\\Source\\Repos\\Kino\\KinoDB.mdf;Integrated Security=True";
+            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\jeliz\\Source\\Repos\\Kino\\KinoDB.mdf;Integrated Security=True";
             string query = "SELECT COUNT(*) FROM kasutajad WHERE KasutajaNimi = @KasutajaNimi AND Parool = @Parool";
 
             try
