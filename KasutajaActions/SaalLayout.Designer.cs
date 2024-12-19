@@ -33,9 +33,9 @@
             // 
             // flowLayoutPanelSeats
             // 
-            this.flowLayoutPanelSeats.Location = new System.Drawing.Point(142, 55);
+            this.flowLayoutPanelSeats.Location = new System.Drawing.Point(135, 73);
             this.flowLayoutPanelSeats.Name = "flowLayoutPanelSeats";
-            this.flowLayoutPanelSeats.Size = new System.Drawing.Size(533, 359);
+            this.flowLayoutPanelSeats.Size = new System.Drawing.Size(480, 312);
             this.flowLayoutPanelSeats.TabIndex = 0;
             // 
             // SaalLayout

@@ -31,7 +31,12 @@ namespace Kino
                 LoadSeats();
             }
 
-            private void LoadSeats()
+        public SaalLayout(int saalId)
+        {
+            this.saalId = saalId;
+        }
+
+        private void LoadSeats()
             {
                 try
                 {
