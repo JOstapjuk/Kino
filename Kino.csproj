@@ -97,6 +97,12 @@
     <Compile Include="Admin\AdminLogin.Designer.cs">
       <DependentUpon>AdminLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="KasutajaActions\SaalLayout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KasutajaActions\SaalLayout.Designer.cs">
+      <DependentUpon>SaalLayout.cs</DependentUpon>
+    </Compile>
     <Compile Include="Kasutaja\UserDetails.cs" />
     <Compile Include="Kasutaja\KasutajaKino.cs">
       <SubType>Form</SubType>
@@ -164,6 +170,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="KasutajaActions\Kava.resx">
       <DependentUpon>Kava.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KasutajaActions\OstaPilet.resx">
+      <DependentUpon>OstaPilet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KasutajaActions\SaalLayout.resx">
+      <DependentUpon>SaalLayout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Kasutaja\KasutajaKino.resx">
       <DependentUpon>KasutajaKino.cs</DependentUpon>

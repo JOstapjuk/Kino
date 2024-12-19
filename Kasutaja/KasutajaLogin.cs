@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kino.Kasutaja;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -46,7 +47,7 @@ namespace Kino
             }
 
             string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\jeliz\\Source\\Repos\\Kino\\KinoDB.mdf;Integrated Security=True";
-            string query = "SELECT COUNT(*) FROM kasutajad WHERE KasutajaNimi = @KasutajaNimi AND Parool = @Parool";
+            string query = "SELECT Id, KasutajaNimi, Parool, Email FROM kasutajad WHERE KasutajaNimi = @KasutajaNimi AND Parool = @Parool";
 
             try
             {
@@ -58,19 +59,26 @@ namespace Kino
                         command.Parameters.AddWithValue("@KasutajaNimi", kasutajaNimi);
                         command.Parameters.AddWithValue("@Parool", parool);
 
-                        int userCount = (int)command.ExecuteScalar();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                // If login is successful, set login to true and store user details
+                                UserDetails.IsLoggedIn = true;
+                                UserDetails.KasutajaId = (int)reader["Id"];
+                                UserDetails.KasutajaNimi = reader["KasutajaNimi"].ToString();
+                                UserDetails.Email = reader["Email"].ToString();
 
-                        if (userCount > 0)
-                        {
-                            MessageBox.Show("Login õnnestus!", "Edu", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            login = true;
-                            KasutajaKino KasutajaKinoForm = new KasutajaKino();
-                            KasutajaKinoForm.Show();
-                            this.Close();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Kasutajanimi või parool on vale.", "Viga", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("Login õnnestus!", "Edu", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                KasutajaKino KasutajaKinoForm = new KasutajaKino();
+                                KasutajaKinoForm.Show();
+                                this.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Kasutajanimi või parool on vale.", "Viga", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                     }
                 }

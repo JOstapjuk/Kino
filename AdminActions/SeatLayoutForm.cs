@@ -7,13 +7,13 @@ using System.Windows.Forms;
 
 namespace Kino
 {
-        public partial class SeatLayoutForm : Form
+        public partial class SaalLayout : Form
         {
             private int saalId;
             private string saalName;
             SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\jeliz\Source\Repos\Kino\KinoDB.mdf;Integrated Security=True");
 
-            public SeatLayoutForm(int saalId, string saalName)
+            public SaalLayout(int saalId, string saalName)
             {
                 InitializeComponent();
                 this.saalId = saalId;
@@ -38,10 +38,10 @@ namespace Kino
                     conn.Open();
                     // Modified query to order by Rida and Koht
                     string query = @"
-            SELECT Id, Rida, Koht, KohtStatus 
-            FROM kohad 
-            WHERE SaalId = @SaalId 
-            ORDER BY Rida, Koht";
+                    SELECT Id, Rida, Koht, KohtStatus 
+                    FROM kohad 
+                    WHERE SaalId = @SaalId 
+                    ORDER BY Rida, Koht";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@SaalId", saalId);
 
@@ -61,74 +61,75 @@ namespace Kino
                 }
             }
 
-            private void GenerateSeatLayout(DataTable seatData)
+        private void GenerateSeatLayout(DataTable seatData)
+        {
+            flowLayoutPanelSeats.Controls.Clear();
+
+            if (seatData.Rows.Count == 0)
             {
-                flowLayoutPanelSeats.Controls.Clear();
+                MessageBox.Show("No seats available for this hall.");
+                return;
+            }
 
-                if (seatData.Rows.Count == 0)
+            // Get the unique rows and sort them
+            var uniqueRows = seatData.AsEnumerable()
+                                    .Select(r => Convert.ToInt32(r["Rida"]))
+                                    .Distinct()
+                                    .OrderBy(r => r);
+
+            foreach (int rowNum in uniqueRows)
+            {
+                // Create a panel for each row
+                FlowLayoutPanel rowPanel = new FlowLayoutPanel
                 {
-                    MessageBox.Show("No seats available for this hall.");
-                    return;
-                }
+                    FlowDirection = FlowDirection.LeftToRight,
+                    AutoSize = true,
+                    WrapContents = false,
+                    Margin = new Padding(0, 10, 0, 10) // Adds spacing between rows
+                };
 
-                // Configure FlowLayoutPanel
-                flowLayoutPanelSeats.FlowDirection = FlowDirection.LeftToRight;
-                flowLayoutPanelSeats.WrapContents = true;
-                flowLayoutPanelSeats.AutoSize = true;
-
-                int currentRow = -1;
-                int seatsPerRow = 5;
-
-                foreach (DataRow row in seatData.Rows)
+                // Add row label
+                Label rowLabel = new Label
                 {
-                    int rowNumber = Convert.ToInt32(row["Rida"]);
-                    int seatNumber = Convert.ToInt32(row["Koht"]);
+                    Text = $"Row {rowNum}",
+                    Width = 60,
+                    Height = 50,
+                    TextAlign = ContentAlignment.MiddleCenter
+                };
+                rowPanel.Controls.Add(rowLabel);
 
-                    // Add row label if we're starting a new row
-                    if (currentRow != rowNumber)
-                    {
-                        currentRow = rowNumber;
-                        // Add spacing at the start of each new row (except first row)
-                        if (rowNumber > 1)
-                        {
-                            // Add empty space to create a new line
-                            for (int i = seatNumber; i <= seatsPerRow; i++)
-                            {
-                                Panel spacer = new Panel
-                                {
-                                    Width = 50,
-                                    Height = 0
-                                };
-                                flowLayoutPanelSeats.Controls.Add(spacer);
-                            }
-                        }
+                // Get and sort seats for this row
+                var rowSeats = seatData.AsEnumerable()
+                                      .Where(r => Convert.ToInt32(r["Rida"]) == rowNum)
+                                      .OrderBy(r => Convert.ToInt32(r["Koht"]));
 
-                        Label rowLabel = new Label
-                        {
-                            Text = $"Row {rowNumber}",
-                            Width = 60,
-                            Height = 50,
-                            TextAlign = ContentAlignment.MiddleCenter
-                        };
-                        flowLayoutPanelSeats.Controls.Add(rowLabel);
-                    }
-
+                foreach (var seat in rowSeats)
+                {
                     Button seatButton = new Button
                     {
-                        Text = seatNumber.ToString(),
+                        Text = seat["Koht"].ToString(),
                         Width = 50,
                         Height = 50,
-                        Tag = row["Id"],
-                        BackColor = row["KohtStatus"].ToString() == "broneeritud" ? Color.Red : Color.Green,
+                        Tag = seat["Id"],
+                        BackColor = seat["KohtStatus"].ToString() == "broneeritud" ? Color.Red : Color.Green,
                         Margin = new Padding(2)
                     };
 
                     seatButton.Click += (s, e) => HandleSeatClick(seatButton);
-                    flowLayoutPanelSeats.Controls.Add(seatButton);
+                    rowPanel.Controls.Add(seatButton);
                 }
+
+                // Add the complete row panel to the main panel
+                flowLayoutPanelSeats.Controls.Add(rowPanel);
             }
 
-            private void HandleSeatClick(Button seatButton)
+            // Set main panel properties
+            flowLayoutPanelSeats.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanelSeats.WrapContents = false;
+            flowLayoutPanelSeats.AutoScroll = true;
+        }
+
+        private void HandleSeatClick(Button seatButton)
             {
                 if (seatButton.BackColor == Color.Green)
                 {

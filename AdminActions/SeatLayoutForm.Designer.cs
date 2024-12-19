@@ -1,6 +1,6 @@
 ﻿namespace Kino
 {
-    partial class SeatLayoutForm
+    partial class SaalLayout
     {
         /// <summary>
         /// Required designer variable.
