@@ -27,7 +27,7 @@ namespace Kino
         private void InitializeDatabase()
         {
             // Replace this connection string with your database connection details
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\jeliz\\Source\\Repos\\Kino\\KinoDB.mdf;Integrated Security=True";
+            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\opilane\\Source\\Repos\\Kino\\KinoDB.mdf;Integrated Security=True";
             conn = new SqlConnection(connectionString);
         }
 

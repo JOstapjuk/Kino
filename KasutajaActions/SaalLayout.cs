@@ -17,14 +17,16 @@ namespace Kino.KasutajaActions
     public partial class SaalLayout : Form
     {
         private int saalId;
-        private string saalName;
-        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\jeliz\Source\Repos\Kino\KinoDB.mdf;Integrated Security=True");
+        public string saalName;
+        public List<string> SelectedSeats { get; set; }
+        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\opilane\Source\Repos\Kino\KinoDB.mdf;Integrated Security=True");
 
         public SaalLayout(int saalId, string saalName)
         {
             InitializeComponent();
             this.saalId = saalId;
             this.saalName = saalName;
+            SelectedSeats = new List<string>();
             LoadSeats();
         }
 
@@ -147,7 +149,8 @@ namespace Kino.KasutajaActions
                 {
                     ReserveSeat(Convert.ToInt32(seatButton.Tag), "broneeritud", seatButton.Text);
                     seatButton.BackColor = Color.Red;
-                    seatButton.Text = "broneeritud";
+                    SelectedSeats.Add(seatButton.Text);
+                    DialogResult = DialogResult.OK;
                 }
             }
             else if (seatButton.BackColor == Color.Red)

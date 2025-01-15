@@ -12,11 +12,12 @@ using Kino.Kasutaja;
 using System.Configuration;
 using Kino.KasutajaActions;
 
+
 namespace Kino
 {
     public partial class OstaPilet : Form
     {
-        private readonly string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\jeliz\Source\Repos\Kino\KinoDB.mdf;Integrated Security=True";
+        private readonly string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\opilane\Source\Repos\Kino\KinoDB.mdf;Integrated Security=True";
         private readonly decimal TICKET_PRICE = 10.00M;
         private int currentSeansId;
         private int currentSaalId;
@@ -94,38 +95,33 @@ namespace Kino
             try
             {
                 string query = @"
-                SELECT SaalId, SaalName
-                FROM Seans
-                WHERE Id = @SeansId";
-
+            SELECT SaalId, SaalName
+            FROM Seans
+            WHERE Id = @SeansId";
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@SeansId", seansId);
-
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
                             {
                                 currentSaalId = Convert.ToInt32(reader["SaalId"]);
-                                string saalName = reader["SaalName"].ToString();
-
-                                SaalLayout saalLayout = new SaalLayout(currentSaalId, saalName);
-
-                                if (saalLayout.ShowDialog() == DialogResult.OK)
+                                string saalName = reader["SaalName"].ToString(); //
+                                using (SaalLayout saalLayout = new SaalLayout(currentSaalId, saalName))
                                 {
-                                    List<string> selectedSeats = SaalLayout.GetSelectedSeats();
-
-                                    int ticketCount = (int)numTickets.Value;
-                                    if (selectedSeats.Count != ticketCount)
+                                    if (saalLayout.ShowDialog() == DialogResult.OK)
                                     {
-                                        MessageBox.Show($"Palun valige täpselt {ticketCount} istekohta.");
-                                        return;
+                                        selectedSeats = saalLayout.SelectedSeats;
+                                        int ticketCount = (int)numTickets.Value;
+                                        if (selectedSeats.Count != ticketCount)
+                                        {
+                                            MessageBox.Show($"Palun valige täpselt {ticketCount} istekohta.");
+                                            return;
+                                        }
                                     }
-
-                                    this.selectedSeats = selectedSeats;
                                 }
                             }
                             else
@@ -370,7 +366,7 @@ namespace Kino
                 var smtpClient = new SmtpClient("smtp.office365.com")
                 {
                     Port = 587,
-                    Credentials = new NetworkCredential(email, emailPassword),
+                    Credentials = new NetworkCredential("jelizaveta.ostapjuk.work@gmail.com", "lsrs danp cdwm ogmd"),
                     EnableSsl = true,
                 };
 
