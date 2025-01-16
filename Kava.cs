@@ -26,7 +26,6 @@ namespace Kino
 
         private void InitializeDatabase()
         {
-            // Replace this connection string with your database connection details
             string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\jeliz\\source\\repos\\Kino\\KinoDB.mdf;Integrated Security=True";
             conn = new SqlConnection(connectionString);
         }
@@ -64,7 +63,7 @@ namespace Kino
                     string posterFileName = row["Poster"].ToString().Trim();
                     string posterPath = Path.Combine(Path.GetFullPath(@"..\..\PosterImg"), posterFileName);
 
-                    Console.WriteLine($"Resolved poster path: {posterPath}"); // Debugging output
+                    Console.WriteLine($"Lahendatud plakati tee: {posterPath}");
 
                     if (File.Exists(posterPath))
                     {
@@ -76,13 +75,13 @@ namespace Kino
                     }
                     else
                     {
-                        Console.WriteLine("File not found: " + posterPath);
+                        Console.WriteLine("Faili ei leitud: " + posterPath);
                         PosterPictureBox.Image = null;
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"An error occurred while processing the image: {ex.Message}");
+                    Console.WriteLine($"Pildi töötlemisel tekkis viga: {ex.Message}");
                     PosterPictureBox.Image = null;
                 }
             }
@@ -112,6 +111,14 @@ namespace Kino
             {
                 MessageBox.Show("See on esimene film.");
             }
+        }
+
+        private void Valjuda_Click(object sender, EventArgs e)
+        {
+            this.Close();
+
+            KasutajaKino KasutajaKinoForm = new KasutajaKino();
+            KasutajaKinoForm.Show();
         }
     }
 }

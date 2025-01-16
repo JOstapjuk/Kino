@@ -92,27 +92,22 @@ namespace Kino.AdminActions
         {
             try
             {
-                // Validate price input
                 if (!decimal.TryParse(txtHind.Text, out decimal hind))
                 {
                     MessageBox.Show("Please enter a valid price.");
                     return;
                 }
 
-                // Insert the date from Paevtxt (which is in dd.MM.yyyy format)
                 string paev = Paevtxt.Text;
 
-                // Insert the time from Aegtxt (which is in HH:mm format)
                 string aeg = Aegtxt.Text;
 
-                // Ensure the date and time are valid
                 if (string.IsNullOrEmpty(paev) || string.IsNullOrEmpty(aeg))
                 {
                     MessageBox.Show("Please ensure both date and time are filled.");
                     return;
                 }
 
-                // Query to insert data into the database
                 string query = @"
             INSERT INTO seans (FilmID, SaalID, Paev, Aeg, Hind) 
             VALUES (@FilmID, @SaalID, @Paev, @Aeg, @Hind)";
@@ -121,8 +116,8 @@ namespace Kino.AdminActions
                 {
                     cmd.Parameters.AddWithValue("@FilmID", cmbFilms.SelectedValue);
                     cmd.Parameters.AddWithValue("@SaalID", cmbSaals.SelectedValue);
-                    cmd.Parameters.AddWithValue("@Paev", paev);  // Directly use the text from Paevtxt
-                    cmd.Parameters.AddWithValue("@Aeg", aeg);   // Directly use the text from Aegtxt
+                    cmd.Parameters.AddWithValue("@Paev", paev);
+                    cmd.Parameters.AddWithValue("@Aeg", aeg);
                     cmd.Parameters.AddWithValue("@Hind", hind);
 
                     conn.Open();
@@ -145,7 +140,6 @@ namespace Kino.AdminActions
             {
                 try
                 {
-                    // Get the column value safely
                     if (dgvSeanss.SelectedRows[0].Cells["Id"] != null &&
                         int.TryParse(dgvSeanss.SelectedRows[0].Cells["Id"].Value?.ToString(), out int seansId))
                     {
@@ -183,7 +177,6 @@ namespace Kino.AdminActions
         {
             this.Close();
 
-            // Open the AdminHaldus form
             AdminHaldus adminHaldusForm = new AdminHaldus();
             adminHaldusForm.Show();
         }

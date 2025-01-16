@@ -58,7 +58,6 @@ namespace Kino
 
                     seansData.Columns.Add("DisplayInfo", typeof(string));
 
-                    // Fix: Correct column name from "Id" to "SeansId"
                     seansData.Columns["SeansId"].DataType = typeof(int);
 
                     foreach (DataRow row in seansData.Rows)
@@ -116,7 +115,6 @@ namespace Kino
                     return;
                 }
 
-                // Pass the selected seansId, saalId, and userEmail to the SaalLayout form
                 using (Kino.KasutajaActions.SaalLayout saalLayout = new Kino.KasutajaActions.SaalLayout(saalId, saalName, userEmail, seansId))
                 {
                     if (saalLayout.ShowDialog() == DialogResult.OK)

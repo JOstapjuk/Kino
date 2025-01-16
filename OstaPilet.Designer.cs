@@ -41,7 +41,7 @@
             this.cmbSeans.Location = new System.Drawing.Point(260, 109);
             this.cmbSeans.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbSeans.Name = "cmbSeans";
-            this.cmbSeans.Size = new System.Drawing.Size(385, 28);
+            this.cmbSeans.Size = new System.Drawing.Size(235, 28);
             this.cmbSeans.TabIndex = 0;
             // 
             // label1

@@ -19,10 +19,8 @@ namespace Kino
                 this.saalId = saalId;
                 this.saalName = saalName;
 
-                // Let's add immediate feedback
-                MessageBox.Show($"Constructor called with SaalId: {saalId}");
+                MessageBox.Show($"Konstruktor, mida kutsutakse SaalId-ga: {saalId}");
 
-                // Let's also verify the flowLayoutPanel exists
                 if (flowLayoutPanelSeats == null)
                 {
                     MessageBox.Show("flowLayoutPanelSeats is null!");
@@ -41,7 +39,6 @@ namespace Kino
                 try
                 {
                     conn.Open();
-                    // Modified query to order by Rida and Koht
                     string query = @"
                     SELECT Id, Rida, Koht, KohtStatus 
                     FROM kohad 
@@ -58,7 +55,7 @@ namespace Kino
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error loading seats: " + ex.Message);
+                    MessageBox.Show("Viga istmete laadimisel: " + ex.Message);
                 }
                 finally
                 {
@@ -72,11 +69,10 @@ namespace Kino
 
             if (seatData.Rows.Count == 0)
             {
-                MessageBox.Show("No seats available for this hall.");
+                MessageBox.Show("Selles saalis ei ole kohti saadaval.");
                 return;
             }
 
-            // Get the unique rows and sort them
             var uniqueRows = seatData.AsEnumerable()
                                     .Select(r => Convert.ToInt32(r["Rida"]))
                                     .Distinct()
@@ -84,16 +80,14 @@ namespace Kino
 
             foreach (int rowNum in uniqueRows)
             {
-                // Create a panel for each row
                 FlowLayoutPanel rowPanel = new FlowLayoutPanel
                 {
                     FlowDirection = FlowDirection.LeftToRight,
                     AutoSize = true,
                     WrapContents = false,
-                    Margin = new Padding(0, 10, 0, 10) // Adds spacing between rows
+                    Margin = new Padding(0, 10, 0, 10)
                 };
 
-                // Add row label
                 Label rowLabel = new Label
                 {
                     Text = $"Row {rowNum}",
@@ -103,7 +97,6 @@ namespace Kino
                 };
                 rowPanel.Controls.Add(rowLabel);
 
-                // Get and sort seats for this row
                 var rowSeats = seatData.AsEnumerable()
                                       .Where(r => Convert.ToInt32(r["Rida"]) == rowNum)
                                       .OrderBy(r => Convert.ToInt32(r["Koht"]));
@@ -124,11 +117,9 @@ namespace Kino
                     rowPanel.Controls.Add(seatButton);
                 }
 
-                // Add the complete row panel to the main panel
                 flowLayoutPanelSeats.Controls.Add(rowPanel);
             }
 
-            // Set main panel properties
             flowLayoutPanelSeats.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanelSeats.WrapContents = false;
             flowLayoutPanelSeats.AutoScroll = true;
@@ -139,8 +130,8 @@ namespace Kino
                 if (seatButton.BackColor == Color.Green)
                 {
                     DialogResult result = MessageBox.Show(
-                        $"Do you want to reserve seat {seatButton.Text}?",
-                        "Confirm Reservation",
+                        $"Kas soovite broneerida koha {seatButton.Text}?",
+                        "Kinnitage broneeringut",
                         MessageBoxButtons.YesNo);
 
                     if (result == DialogResult.Yes)
@@ -152,8 +143,8 @@ namespace Kino
                 else if (seatButton.BackColor == Color.Red)
                 {
                     DialogResult result = MessageBox.Show(
-                        $"Do you want to release seat {seatButton.Text}?",
-                        "Confirm Release",
+                        $"Kas soovite vabastada istme {seatButton.Text}?",
+                        "Kinnitage vabastamist",
                         MessageBoxButtons.YesNo);
 
                     if (result == DialogResult.Yes)
@@ -175,11 +166,11 @@ namespace Kino
                     cmd.Parameters.AddWithValue("@SeatId", seatId);
                     cmd.ExecuteNonQuery();
 
-                    MessageBox.Show("Seat status updated successfully.");
+                    MessageBox.Show("Istekoha staatus on edukalt uuendatud.");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error updating seat status: " + ex.Message);
+                    MessageBox.Show("Viga istekoha staatuse ajakohastamisel: " + ex.Message);
                 }
                 finally
                 {

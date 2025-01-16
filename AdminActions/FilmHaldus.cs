@@ -13,7 +13,7 @@ namespace Kino.AdminActions
         SqlCommand cmd;
         SqlDataAdapter adapter;
 
-        private readonly string posterImgPath = Path.GetFullPath(@"..\..\PosterImg"); // Define the path once
+        private readonly string posterImgPath = Path.GetFullPath(@"..\..\PosterImg"); 
 
         public FilmHaldus()
         {
@@ -57,10 +57,9 @@ namespace Kino.AdminActions
                         }
 
                         string extension = Path.GetExtension(open.FileName);
-                        string fileName = NimetusBox.Text + extension; // Use film name as file name
+                        string fileName = NimetusBox.Text + extension;
                         string savePath = Path.Combine(posterImgPath, fileName);
 
-                        // Save poster image to designated folder
                         File.Copy(open.FileName, savePath, true);
 
                         conn.Open();
@@ -169,7 +168,6 @@ namespace Kino.AdminActions
                     string saveDirectory = Path.Combine(Path.GetFullPath(@"..\..\PosterImg"));
                     string newPosterPath = Path.Combine(saveDirectory, newFileName);
 
-                    // Ask user if they want to update the poster
                     DialogResult result = MessageBox.Show(
                         "Kas soovite uuendada postrit?",
                         "Poster Update",
@@ -178,7 +176,6 @@ namespace Kino.AdminActions
 
                     if (result == DialogResult.Yes)
                     {
-                        // Open file dialog for selecting a new poster
                         OpenFileDialog open = new OpenFileDialog
                         {
                             InitialDirectory = @"C:\Users\opilane\Pictures\",
@@ -188,23 +185,19 @@ namespace Kino.AdminActions
 
                         if (open.ShowDialog() == DialogResult.OK)
                         {
-                            // Ensure save directory exists
                             if (!Directory.Exists(saveDirectory))
                             {
                                 Directory.CreateDirectory(saveDirectory);
                             }
 
-                            // Copy the new poster to the designated folder
                             File.Copy(open.FileName, newPosterPath, true);
 
-                            // Dispose of the existing image in the PictureBox
                             if (PosterPictureBox.Image != null)
                             {
                                 PosterPictureBox.Image.Dispose();
                                 PosterPictureBox.Image = null;
                             }
 
-                            // Load the new image into the PictureBox
                             PosterPictureBox.Image = Image.FromFile(newPosterPath);
                             PosterPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                         }
@@ -214,7 +207,6 @@ namespace Kino.AdminActions
                         }
                     }
 
-                    // Update database with new details
                     conn.Open();
                     cmd = new SqlCommand("UPDATE film SET Nimetus = @nimetus, Zanr = @zanr, Rezisoor = @rezisoor, Pikkus = @pikkus, Osataitjad = @osataitjad, Poster = @poster WHERE Id = @id", conn);
                     cmd.Parameters.AddWithValue("@nimetus", NimetusBox.Text);
@@ -223,13 +215,13 @@ namespace Kino.AdminActions
                     cmd.Parameters.AddWithValue("@rezisoor", RezisoorBox.Text);
                     cmd.Parameters.AddWithValue("@pikkus", PikkusBox.Text);
                     cmd.Parameters.AddWithValue("@osataitjad", OsataitjadBox.Text);
-                    cmd.Parameters.AddWithValue("@poster", Path.GetFileName(newPosterPath)); // Save only the file name
+                    cmd.Parameters.AddWithValue("@poster", Path.GetFileName(newPosterPath));
 
                     cmd.ExecuteNonQuery();
                     conn.Close();
 
                     MessageBox.Show("Film ja poster uuendatud!");
-                    NaitaAndmed(); // Refresh data in the grid
+                    NaitaAndmed();
                 }
                 catch (Exception ex)
                 {
@@ -268,26 +260,24 @@ namespace Kino.AdminActions
 
                         if (File.Exists(relativePosterPath))
                         {
-                            // Dispose of the existing image in the PictureBox
                             if (PosterPictureBox.Image != null)
                             {
                                 PosterPictureBox.Image.Dispose();
                                 PosterPictureBox.Image = null;
                             }
 
-                            // Load the image
                             PosterPictureBox.Image = Image.FromFile(relativePosterPath);
                             PosterPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                         }
                         else
                         {
                             MessageBox.Show($"Posterit ei leitud: {relativePosterPath}");
-                            PosterPictureBox.Image = null; // Clear the PictureBox
+                            PosterPictureBox.Image = null; 
                         }
                     }
                     else
                     {
-                        PosterPictureBox.Image = null; // Clear the PictureBox if no poster filename
+                        PosterPictureBox.Image = null;
                     }
                 }
                 else
@@ -305,7 +295,6 @@ namespace Kino.AdminActions
         {
             this.Close();
 
-            // Open the AdminHaldus form
             AdminHaldus adminHaldusForm = new AdminHaldus();
             adminHaldusForm.Show();
         }

@@ -63,7 +63,6 @@ namespace Kino
                         {
                             if (reader.Read())
                             {
-                                // If login is successful, set login to true and store user details
                                 UserDetails.IsLoggedIn = true;
                                 UserDetails.KasutajaId = (int)reader["Id"];
                                 UserDetails.KasutajaNimi = reader["KasutajaNimi"].ToString();

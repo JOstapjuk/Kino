@@ -45,9 +45,8 @@ namespace Kino.AdminActions
                 int saalId = Convert.ToInt32(dataGridViewHalls.SelectedRows[0].Cells["Id"].Value);
                 string saalName = dataGridViewHalls.SelectedRows[0].Cells["Nimetus"].Value.ToString();
 
-                // Open SeatLayoutForm with selected hall details
                 SaalLayout layoutForm = new SaalLayout(saalId, saalName);
-                layoutForm.ShowDialog(); // Open the layout form as a dialog.
+                layoutForm.ShowDialog();
             }
             else
             {
@@ -59,7 +58,6 @@ namespace Kino.AdminActions
         {
             this.Close();
 
-            // Open the AdminHaldus form
             AdminHaldus adminHaldusForm = new AdminHaldus();
             adminHaldusForm.Show();
         }
