@@ -46,7 +46,7 @@ namespace Kino
                 return;
             }
 
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\opilane\\Source\\Repos\\Kino\\KinoDB.mdf;Integrated Security=True";
+            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\jeliz\\source\\repos\\Kino\\KinoDB.mdf;Integrated Security=True";
             string query = "SELECT Id, KasutajaNimi, Parool, Email FROM kasutajad WHERE KasutajaNimi = @KasutajaNimi AND Parool = @Parool";
 
             try

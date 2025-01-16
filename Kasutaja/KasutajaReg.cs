@@ -30,7 +30,7 @@ namespace Kino
                 return;
             }
 
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\opilane\\Source\\Repos\\Kino\\KinoDB.mdf;Integrated Security=True";
+            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\jeliz\\source\\repos\\Kino\\KinoDB.mdf;Integrated Security=True";
             string query = "INSERT INTO kasutajad (KasutajaNimi, Parool, Email) VALUES (@KasutajaNimi, @Parool, @Email)";
 
             try

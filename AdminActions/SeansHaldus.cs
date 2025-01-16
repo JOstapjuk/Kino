@@ -13,7 +13,7 @@ namespace Kino.AdminActions
 {
     public partial class SeansHaldus : Form
     {
-        private SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\opilane\Source\Repos\Kino\KinoDB.mdf;Integrated Security=True");
+        private SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\jeliz\source\repos\Kino\KinoDB.mdf;Integrated Security=True");
 
         public SeansHaldus()
         {
@@ -179,5 +179,13 @@ namespace Kino.AdminActions
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+
+            // Open the AdminHaldus form
+            AdminHaldus adminHaldusForm = new AdminHaldus();
+            adminHaldusForm.Show();
+        }
     }
 }

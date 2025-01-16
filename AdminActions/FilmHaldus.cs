@@ -9,7 +9,7 @@ namespace Kino.AdminActions
 {
     public partial class FilmHaldus : Form
     {
-        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\opilane\Source\Repos\Kino\KinoDB.mdf;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\jeliz\source\repos\Kino\KinoDB.mdf;Integrated Security=True");
         SqlCommand cmd;
         SqlDataAdapter adapter;
 
@@ -301,5 +301,13 @@ namespace Kino.AdminActions
             }
         }
 
+        private void ValjudaBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+
+            // Open the AdminHaldus form
+            AdminHaldus adminHaldusForm = new AdminHaldus();
+            adminHaldusForm.Show();
+        }
     }
 }

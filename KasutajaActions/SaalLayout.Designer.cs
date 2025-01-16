@@ -29,21 +29,35 @@
         private void InitializeComponent()
         {
             this.flowLayoutPanelSeats = new System.Windows.Forms.FlowLayoutPanel();
+            this.BtnReserveSeats = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // flowLayoutPanelSeats
             // 
-            this.flowLayoutPanelSeats.Location = new System.Drawing.Point(135, 73);
+            this.flowLayoutPanelSeats.Location = new System.Drawing.Point(202, 112);
+            this.flowLayoutPanelSeats.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.flowLayoutPanelSeats.Name = "flowLayoutPanelSeats";
-            this.flowLayoutPanelSeats.Size = new System.Drawing.Size(480, 312);
+            this.flowLayoutPanelSeats.Size = new System.Drawing.Size(720, 480);
             this.flowLayoutPanelSeats.TabIndex = 0;
+            // 
+            // BtnReserveSeats
+            // 
+            this.BtnReserveSeats.Location = new System.Drawing.Point(994, 617);
+            this.BtnReserveSeats.Name = "BtnReserveSeats";
+            this.BtnReserveSeats.Size = new System.Drawing.Size(114, 46);
+            this.BtnReserveSeats.TabIndex = 1;
+            this.BtnReserveSeats.Text = "Reserveeri";
+            this.BtnReserveSeats.UseVisualStyleBackColor = true;
+            this.BtnReserveSeats.Click += new System.EventHandler(this.BtnReserveSeats_Click);
             // 
             // SaalLayout
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1200, 692);
+            this.Controls.Add(this.BtnReserveSeats);
             this.Controls.Add(this.flowLayoutPanelSeats);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "SaalLayout";
             this.Text = "SaalLayout";
             this.ResumeLayout(false);
@@ -53,5 +67,6 @@
         #endregion
 
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelSeats;
+        private System.Windows.Forms.Button BtnReserveSeats;
     }
 }

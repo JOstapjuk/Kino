@@ -34,6 +34,7 @@
             this.kinoDBDataSet = new Kino.KinoDBDataSet();
             this.btnViewLayout = new System.Windows.Forms.Button();
             this.saalTableAdapter = new Kino.KinoDBDataSetTableAdapters.saalTableAdapter();
+            this.Valjuda = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHalls)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saalBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kinoDBDataSet)).BeginInit();
@@ -42,12 +43,11 @@
             // dataGridViewHalls
             // 
             this.dataGridViewHalls.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewHalls.Location = new System.Drawing.Point(23, 25);
-            this.dataGridViewHalls.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridViewHalls.Location = new System.Drawing.Point(34, 38);
             this.dataGridViewHalls.Name = "dataGridViewHalls";
             this.dataGridViewHalls.RowHeadersWidth = 62;
             this.dataGridViewHalls.RowTemplate.Height = 28;
-            this.dataGridViewHalls.Size = new System.Drawing.Size(713, 143);
+            this.dataGridViewHalls.Size = new System.Drawing.Size(1070, 220);
             this.dataGridViewHalls.TabIndex = 0;
             // 
             // saalBindingSource
@@ -62,10 +62,9 @@
             // 
             // btnViewLayout
             // 
-            this.btnViewLayout.Location = new System.Drawing.Point(23, 194);
-            this.btnViewLayout.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnViewLayout.Location = new System.Drawing.Point(34, 298);
             this.btnViewLayout.Name = "btnViewLayout";
-            this.btnViewLayout.Size = new System.Drawing.Size(118, 34);
+            this.btnViewLayout.Size = new System.Drawing.Size(177, 52);
             this.btnViewLayout.TabIndex = 1;
             this.btnViewLayout.Text = "Näita saal";
             this.btnViewLayout.UseVisualStyleBackColor = true;
@@ -75,14 +74,24 @@
             // 
             this.saalTableAdapter.ClearBeforeFill = true;
             // 
+            // Valjuda
+            // 
+            this.Valjuda.Location = new System.Drawing.Point(247, 303);
+            this.Valjuda.Name = "Valjuda";
+            this.Valjuda.Size = new System.Drawing.Size(145, 47);
+            this.Valjuda.TabIndex = 2;
+            this.Valjuda.Text = "Väljuda";
+            this.Valjuda.UseVisualStyleBackColor = true;
+            this.Valjuda.Click += new System.EventHandler(this.Valjuda_Click);
+            // 
             // SaalHaldus
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(810, 463);
+            this.ClientSize = new System.Drawing.Size(1215, 712);
+            this.Controls.Add(this.Valjuda);
             this.Controls.Add(this.btnViewLayout);
             this.Controls.Add(this.dataGridViewHalls);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "SaalHaldus";
             this.Text = "SaalHaldus";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHalls)).EndInit();
@@ -99,5 +108,6 @@
         private KinoDBDataSet kinoDBDataSet;
         private System.Windows.Forms.BindingSource saalBindingSource;
         private KinoDBDataSetTableAdapters.saalTableAdapter saalTableAdapter;
+        private System.Windows.Forms.Button Valjuda;
     }
 }

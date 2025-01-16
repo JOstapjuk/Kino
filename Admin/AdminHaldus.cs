@@ -25,17 +25,17 @@ namespace Kino
             this.Close();
         }
 
-        private void PiletHaldus_Click(object sender, EventArgs e)
-        {
-            PiletHaldus PiletHaldusForm = new PiletHaldus();
-            PiletHaldusForm.Show();
-            this.Close();
-        }
-
         private void FilmHaldus_Click(object sender, EventArgs e)
         {
             FilmHaldus FilmHaldusForm = new FilmHaldus();
             FilmHaldusForm.Show();
+            this.Close();
+        }
+
+        private void SeansHaldusBtn_Click(object sender, EventArgs e)
+        {
+            SeansHaldus SeansHaldusForm = new SeansHaldus();
+            SeansHaldusForm.Show();
             this.Close();
         }
     }
